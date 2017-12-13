@@ -7,6 +7,7 @@ class Lobby extends FluxComponent
   @stateFields
     currentUser:  null
     showLobby:    true
+    chatRoom:     :artSuite
     ready:        false
 
   @getter
@@ -14,9 +15,20 @@ class Lobby extends FluxComponent
       !!present @currentUser
 
   enter: ->
-    @showLobby = false if @canEnter
+    if @canEnter
+      @showLobby = false
+      @models.chat.create data: {}
+        user:     @currentUser
+        message:  "/entered the room"
+        @chatRoom
 
-  exit: -> @showLobby = true
+  exit: ->
+    unless @showLobby
+      @showLobby = true
+      @models.chat.create data: {}
+        user:     @currentUser
+        message:  "/left"
+        @chatRoom
 
   renderLobbyUi: ->
     {gridSize} = &StyleProps
@@ -31,22 +43,19 @@ class Lobby extends FluxComponent
         location: duration: .5 toFrom: ps: .5, y: -70
         opacity:  duration: .5 toFrom: 0
         scale:    duration: .5 toFrom: .975
-      # draw: #0002
       Element
-        size: h: 100
+        size: hch: 1
         TextElement
+          inFlow: false
           axis:   :bottomRight
           location: ps: 1
           text:   :Chat
           color:  &Palette.black.quandary
-          # shadow: true
           fontSize: 92
         TextElement
-          axis:   :bottomLeft
-          location: ps: y: 1
+          size:   cs: 1
           text:   :ArtSuite
           color:  :white
-          # shadow: true
           fontSize: 48
 
       Element
@@ -92,4 +101,4 @@ class Lobby extends FluxComponent
           axis: x: .5
           location: ww: .5
           size: ww: 1 max: x: 400
-          &ChatView {} @currentUser, chatRoom: :artSuite, back: @exit
+          &ChatView {} @currentUser, @chatRoom, @exit

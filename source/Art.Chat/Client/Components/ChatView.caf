@@ -30,7 +30,7 @@ class ChatView extends FluxComponent
         childrenLayout:     :row
         childrenAlignment:  :centerLeft
         childrenMargins:    gridSize / 2
-        &Button text: :▼ action: @props.back
+        &Button text: :▼ action: @props.exit
 
         TextElement
           &StyleProps.titleText

@@ -5,6 +5,9 @@ class ChatMessage extends Component
   render: ->
     {currentUser, user, message} = @props
 
+    if isAction = /^\//.test message
+      message = "#{user} #{message.slice 1, message.length}"
+
     currentUsersMessage = user == currentUser
 
     Element
@@ -27,7 +30,7 @@ class ChatMessage extends Component
             axis:     x:  1
             location: xw: 1
 
-          draw:
+          draw: unless isAction then []
             rectangle: radius: 10
             if currentUsersMessage
               colors:
@@ -38,16 +41,16 @@ class ChatMessage extends Component
 
           TextElement
             mediumText
-            padding:  10
+            padding:  if isAction then 0 else 10
             text:     message
             size:     cs: 1   max: ww:1
             color:
-              if currentUsersMessage
+              if currentUsersMessage && !isAction
                 &Palette.white.primary
               else
                 &Palette.black.secondary
 
-        TextElement
+        !isAction && TextElement
           smallText
           text:   user
           color:  &Palette.black.secondary
