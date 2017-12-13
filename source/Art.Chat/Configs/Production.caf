@@ -1,6 +1,6 @@
 import &ArtStandardLib
 
-class Development extends &ArtConfig.Config
+class Production extends &ArtConfig.Config
   Art:
     Aws:
       credentials:
@@ -9,13 +9,10 @@ class Development extends &ArtConfig.Config
 
       region:             'us-east-1'
 
-      dynamoDb:
-        endpoint:         'http://localhost:1337/localhost:8081'
-
     EryExtensions: Pusher:
       key:      :ee6fca952b1a40c3a5fe
       cluster:  :us2
       verbose: true
       verifyConnection: true
 
-    Ery: tableNamePrefix: "art-chat-dev."
+    Ery: tableNamePrefix: "art-chat-prod."

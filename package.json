@@ -10,12 +10,8 @@
     "express": "^4.15.3",
     "fs-extra": "^3.0.1",
     "jsonwebtoken": "^7.4.1",
-    "mailgun-js": "^0.11.2",
-    "morgan": "^1.8.2",
-    "newrelic": "^2.2.1",
     "pusher": "^1.5.1",
     "querystring": "*",
-    "stripe": "^4.22.0",
     "throng": "^4.0.0",
     "uuid": "^3.0.1",
     "xhr2": "^0.1.4"

@@ -5,3 +5,4 @@ module.exports = require './namespace'
 module.exports
 .addModules
   Development: require './Development'
+  Production:  require './Production' 
