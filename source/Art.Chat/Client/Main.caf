@@ -1,4 +1,5 @@
 import &ArtSuite
+&ArtEryPusher/Client
 &Configs
 &Pipelines
 &ArtSuiteApp.initArtSuiteClient

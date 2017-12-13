@@ -91,5 +91,5 @@ class Lobby extends FluxComponent
           animators: axis: duration: .5 toFrom: y: -1, x: .5
           axis: x: .5
           location: ww: .5
-          size: ww: 1 max: x: 360
+          size: ww: 1 max: x: 400
           &ChatView {} @currentUser, chatRoom: :artSuite, back: @exit

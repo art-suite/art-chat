@@ -52,17 +52,18 @@ class ChatView extends FluxComponent
               {} @props.currentUser
 
       Element
-        size: hch: 1
-        padding: h: 7
+        size:     hch: 1
+        padding:  h: 7
         draw:
+          outline:    &Palette.black.quandary
           &Palette.gray
-          padding: 7
-          rectangle: radius: gridSize
+          padding:    gridSize / 2
+          rectangle:  radius: gridSize
           &Palette.white.primary
-          outline: &Palette.black.quandary
+          outline:    &Palette.black.quandary
 
         TextInputElement
-          key: "messageInput"
+          key: :messageInput
           &StyleProps.mediumText
           on: enter: @postMessage
           type: :textarea

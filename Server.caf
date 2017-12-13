@@ -1,0 +1,7 @@
+import &ArtSuite
+&source/ArtChat/Configs
+&source/ArtChat/Pipelines
+&ArtEryPusher/Server
+configure verbose: true
+&ArtEry/Server.start
+  static: root: :./public
