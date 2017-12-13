@@ -4,7 +4,6 @@
 module.exports = require './namespace'
 module.exports
 .addModules
-  App:         require './App'        
   Button:      require './Button'     
   ChatMessage: require './ChatMessage'
   ChatView:    require './ChatView'   

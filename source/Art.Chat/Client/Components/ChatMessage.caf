@@ -1,18 +1,17 @@
-import &ArtSuite, &StyleProps
+import &ArtSuite
 
 class ChatMessage extends Component
 
   render: ->
     {currentUser, user, message} = @props
 
-    if isAction = /^\//.test message
-      message = "#{user} #{message.slice 1, message.length}"
+    isAction = /^\//.test message
 
     currentUsersMessage = user == currentUser
 
     Element
-      margin: 10
-      size: hch: 1
+      margin:         10
+      size:           hch: 1
       childrenLayout: :row
       animators:
         size: toFrom: h: 0
@@ -39,9 +38,9 @@ class ChatMessage extends Component
             else
               &Palette.gray
 
-          TextElement
-            mediumText
-            padding:  if isAction then 0 else 10
+          !isAction && TextElement
+            &StyleProps.mediumText
+            padding:  10
             text:     message
             size:     cs: 1   max: ww:1
             color:
@@ -50,7 +49,7 @@ class ChatMessage extends Component
               else
                 &Palette.black.secondary
 
-        !isAction && TextElement
-          smallText
-          text:   user
+        TextElement
+          &StyleProps.smallText
+          text:   if isAction then "#{user} #{message.slice 1, message.length}" else user
           color:  &Palette.black.secondary

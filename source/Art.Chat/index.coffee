@@ -3,8 +3,6 @@
 
 module.exports = require './namespace'
 module.exports
-.addModules
-  StandardImport: require './StandardImport'
 require './Client'
 require './Configs'
 require './Pipelines'

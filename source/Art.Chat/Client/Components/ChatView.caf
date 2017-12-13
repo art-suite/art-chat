@@ -63,10 +63,10 @@ class ChatView extends FluxComponent
           outline:    &Palette.black.quandary
 
         TextInputElement
-          key: :messageInput
           &StyleProps.mediumText
-          on: enter: @postMessage
-          type: :textarea
-          size: ww:1 hch:1 max: h: 160
-          padding: h: 10 v: gridSize
-          placeholder: "" new message
+          key:          :messageInput
+          on:           enter: @postMessage
+          type:         :textarea
+          size:         ww:1 hch:1 max: h: 160
+          padding:      h: 10 v: gridSize
+          placeholder:  "" new message
