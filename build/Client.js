@@ -51287,7 +51287,6 @@ Caf.defMod(module, () => {
           Pusher: {
             key: "ee6fca952b1a40c3a5fe",
             cluster: "us2",
-            verbose: true,
             verifyConnection: true
           }
         },
