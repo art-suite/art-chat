@@ -1,0 +1,7 @@
+import &StandardImport
+
+class App extends FluxComponent
+
+  render: ->
+    Element
+      draw: &Palette.gray

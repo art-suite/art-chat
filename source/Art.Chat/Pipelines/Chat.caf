@@ -1,0 +1,9 @@
+import &ArtSuite/Node, &ArtEryAws, &ArtEryPusher
+
+class Chat extends PusherPipelineMixin DynamoDbPipeline
+  @globalIndexes chatsByChatRoom: :chatRoom/createdAt
+
+  @addDatabaseFilters
+    user:     "" required trimmedString
+    message:  "" required trimmedString
+    chatRoom: "" required trimmedString

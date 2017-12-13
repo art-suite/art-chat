@@ -1,0 +1,71 @@
+import &ArtSuite
+
+class ChatView extends FluxComponent
+  @subscriptions
+    history:
+      model:  :chatsByChatRoom
+      key:    ({chatRoom}) ->  chatRoom
+
+  postMessage: ({target}) ->
+    @models.chat.create data: {}
+      user:     @props.currentUser
+      message:  target.value
+      @props.chatRoom
+    target.value = ""
+
+  componentWillMount: ->
+    timeout 500 -> @refs.messageInput.element.focus()
+    super
+
+  render: ->
+    {gridSize} = &StyleProps
+    Element
+      childrenLayout: :column
+      draw: &StyleProps.chatViewBackground
+
+      Element
+        size: h: gridSize * 3
+        draw: &Palette.primary
+        padding: h: gridSize / 2
+        childrenLayout:     :row
+        childrenAlignment:  :centerLeft
+        childrenMargins:    gridSize / 2
+        &Button text: :▼ action: @props.back
+
+        TextElement
+          &StyleProps.titleText
+          size: cs: 1
+          text: @props.currentUser
+
+      ScrollElement
+        clip: true
+        track: :bottom
+
+        Element
+          padding:        10
+          size:           hch: 1
+          childrenLayout: :column
+
+          array postMessage from @history
+            &ChatMessage
+              postMessage
+              {} @props.currentUser
+
+      Element
+        size: hch: 1
+        padding: h: 7
+        draw:
+          &Palette.gray
+          padding: 7
+          rectangle: radius: gridSize
+          &Palette.white.primary
+          outline: &Palette.black.quandary
+
+        TextInputElement
+          key: "messageInput"
+          &StyleProps.mediumText
+          on: enter: @postMessage
+          type: :textarea
+          size: ww:1 hch:1 max: h: 160
+          padding: h: 10 v: gridSize
+          placeholder: "" new message

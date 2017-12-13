@@ -1,0 +1,53 @@
+import &ArtSuite, &StyleProps
+
+class ChatMessage extends Component
+
+  render: ->
+    {currentUser, user, message} = @props
+
+    currentUsersMessage = user == currentUser
+
+    Element
+      margin: 10
+      size: hch: 1
+      childrenLayout: :row
+      animators:
+        size: toFrom: h: 0
+        axis: toFrom: x: if currentUsersMessage then -1 else 1
+
+      Element
+        size:               hch: 1
+        childrenLayout:     :column
+        childrenMargins:    5
+        childrenAlignment:  if currentUsersMessage then :right else :left
+
+        Element
+          size: cs: 1   max: w: 260
+          if currentUsersMessage
+            axis:     x:  1
+            location: xw: 1
+
+          draw:
+            rectangle: radius: 10
+            if currentUsersMessage
+              colors:
+                &Palette.veryLightPrimary
+                &Palette.lightPrimary
+            else
+              &Palette.gray
+
+          TextElement
+            mediumText
+            padding:  10
+            text:     message
+            size:     cs: 1   max: ww:1
+            color:
+              if currentUsersMessage
+                &Palette.white.primary
+              else
+                &Palette.black.secondary
+
+        TextElement
+          smallText
+          text:   user
+          color:  &Palette.black.secondary
