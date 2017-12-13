@@ -22321,7 +22321,7 @@ defineModule(module, Config = (function(superClass) {
         });
       }
     } else if (this.PusherServer) {
-      this.pusherServer = new this.PusherServer(log("pusher config", this.config));
+      this.pusherServer = new this.PusherServer(this.config);
       verbose && log("ArtEryPusher: PusherServer initialized");
       return verifyConnection && this.pusherServer.trigger('ArtEryPusherConfig', "server", {
         message: "ArtEryPusher: verifyConnection: pusher was initialized correctly"
