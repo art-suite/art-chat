@@ -37444,8 +37444,7 @@ sendChanged = function(pipeline, key, payload) {
     log({
       sendChanged: {
         channel: channel,
-        payload: payload,
-        pusherServer: Config.pusherServer
+        payload: payload
       }
     });
   }
@@ -37576,18 +37575,15 @@ defineModule(module, function() {
       };
 
       PusherFluxModelMixin.prototype._subscribe = function(key) {
-        var base, pusherChannel, pusherClient, pusherEventName;
+        var base, pusherClient, pusherEventName;
         pusherEventName = config.pusherEventName;
         pusherClient = Config.pusherClient;
         if (!pusherClient) {
           return;
         }
-        (base = this._channels)[key] || (base[key] = pusherClient.subscribe(pusherChannel = this._getPusherChannel(key)));
+        (base = this._channels)[key] || (base[key] = pusherClient.subscribe(this._getPusherChannel(key)));
         if (!this._listeners[key]) {
           activeSubscriptions[this.name + " " + key] = true;
-          log({
-            addListener: pusherChannel
-          });
           return this._channels[key].bind(pusherEventName, this._listeners[key] = (function(_this) {
             return function(pusherData) {
               return _this._processPusherChangedEvent(pusherData, key);
@@ -37617,15 +37613,6 @@ defineModule(module, function() {
       PusherFluxModelMixin.prototype._processPusherChangedEvent = function(event, channelKey) {
         var fluxRecord, key, model, sender, type, updatedAt;
         key = event.key, sender = event.sender, updatedAt = event.updatedAt, type = event.type;
-        log({
-          _processPusherChangedEvent: {
-            channelKey: channelKey,
-            key: key,
-            sender: sender,
-            updatedAt: updatedAt,
-            type: type
-          }
-        });
         model = this.recordsModel || this;
         switch (type) {
           case "create":
@@ -51306,7 +51293,7 @@ Caf.defMod(module, () => {
         message: "required trimmedString",
         chatRoom: "required trimmedString"
       });
-      this.publicRequestTypes("create chatsByChatRoom");
+      this.publicRequestTypes("get create chatsByChatRoom");
     }
   ));
 });
@@ -76472,7 +76459,7 @@ module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","depende
 /* 599 */
 /***/ (function(module, exports) {
 
-module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","dependencies":{"art-build-configurator":"*","art-class-system":"*","art-config":"*","art-standard-lib":"*","art-suite-app":"git://github.com/imikimi/art-suite-app","art-testbench":"*","bluebird":"^3.5.0","caffeine-script":"*","caffeine-script-runtime":"*","case-sensitive-paths-webpack-plugin":"^2.1.1","chai":"^4.0.1","coffee-loader":"^0.7.3","coffee-script":"^1.12.6","colors":"^1.1.2","commander":"^2.9.0","css-loader":"^0.28.4","dateformat":"^2.0.0","detect-node":"^2.0.3","fs-extra":"^3.0.1","glob":"^7.1.2","glob-promise":"^3.1.0","json-loader":"^0.5.4","mocha":"^3.4.2","neptune-namespaces":"*","script-loader":"^0.7.0","style-loader":"^0.18.1","webpack":"^2.6.1","webpack-dev-server":"^2.4.5","webpack-merge":"^4.1.0","webpack-node-externals":"^1.6.0"},"description":"Art.Chat","license":"ISC","name":"art-chat","scripts":{"build":"webpack --progress","start":"webpack-dev-server --hot --inline --progress","test":"webpack-dev-server --progress","testInBrowser":"webpack-dev-server --progress"}}
+module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","dependencies":{"art-build-configurator":"*","art-class-system":"*","art-config":"*","art-standard-lib":"*","art-suite-app":"git://github.com/imikimi/art-suite-app","art-testbench":"*","bluebird":"^3.5.0","caffeine-script":"*","caffeine-script-runtime":"*","case-sensitive-paths-webpack-plugin":"^2.1.1","chai":"^4.0.1","coffee-loader":"^0.7.3","coffee-script":"^1.12.6","colors":"^1.1.2","commander":"^2.9.0","css-loader":"^0.28.4","dateformat":"^2.0.0","detect-node":"^2.0.3","fs-extra":"^3.0.1","glob":"^7.1.2","glob-promise":"^3.1.0","json-loader":"^0.5.4","mocha":"^3.4.2","neptune-namespaces":"*","script-loader":"^0.7.0","style-loader":"^0.18.1","webpack":"^2.6.1","webpack-dev-server":"^2.4.5","webpack-merge":"^4.1.0","webpack-node-externals":"^1.6.0"},"description":"Art.Chat","license":"ISC","name":"art-chat","scripts":{"build":"nn -s; webpack --progress","dev":"nn -s; webpack-dev-server --hot --inline --progress","start":"node build/Server.js","test":"webpack-dev-server --progress","testInBrowser":"webpack-dev-server --progress"}}
 
 /***/ }),
 /* 600 */
@@ -76502,7 +76489,7 @@ module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","depende
 /* 604 */
 /***/ (function(module, exports) {
 
-module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","dependencies":{"art-build-configurator":"*","art-class-system":"*","art-config":"*","art-standard-lib":"*","art-testbench":"*","bluebird":"^3.5.0","caffeine-script":"*","caffeine-script-runtime":"*","case-sensitive-paths-webpack-plugin":"^2.1.1","chai":"^4.0.1","coffee-loader":"^0.7.3","coffee-script":"^1.12.6","colors":"^1.1.2","commander":"^2.9.0","css-loader":"^0.28.4","dateformat":"^2.0.0","detect-node":"^2.0.3","fs-extra":"^3.0.1","glob":"^7.1.2","glob-promise":"^3.1.0","json-loader":"^0.5.4","mocha":"^3.4.2","neptune-namespaces":"*","pusher":"^1.5.1","pusher-js":"^4.0.0","script-loader":"^0.7.0","style-loader":"^0.18.1","webpack":"^2.6.1","webpack-dev-server":"^2.4.5","webpack-merge":"^4.1.0","webpack-node-externals":"^1.6.0"},"description":"Art.Ery.Pusher","license":"ISC","name":"art-ery-pusher","scripts":{"build":"webpack --progress","start":"webpack-dev-server --hot --inline --progress","test":"webpack-dev-server --progress","testInBrowser":"webpack-dev-server --progress","testServer":"coffee ./TestServer.coffee"},"version":"0.11.2"}
+module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","dependencies":{"art-build-configurator":"*","art-class-system":"*","art-config":"*","art-standard-lib":"*","art-testbench":"*","bluebird":"^3.5.0","caffeine-script":"*","caffeine-script-runtime":"*","case-sensitive-paths-webpack-plugin":"^2.1.1","chai":"^4.0.1","coffee-loader":"^0.7.3","coffee-script":"^1.12.6","colors":"^1.1.2","commander":"^2.9.0","css-loader":"^0.28.4","dateformat":"^2.0.0","detect-node":"^2.0.3","fs-extra":"^3.0.1","glob":"^7.1.2","glob-promise":"^3.1.0","json-loader":"^0.5.4","mocha":"^3.4.2","neptune-namespaces":"*","pusher":"^1.5.1","pusher-js":"^4.0.0","script-loader":"^0.7.0","style-loader":"^0.18.1","webpack":"^2.6.1","webpack-dev-server":"^2.4.5","webpack-merge":"^4.1.0","webpack-node-externals":"^1.6.0"},"description":"Art.Ery.Pusher","license":"ISC","name":"art-ery-pusher","scripts":{"build":"webpack --progress","start":"webpack-dev-server --hot --inline --progress","test":"webpack-dev-server --progress","testInBrowser":"webpack-dev-server --progress","testServer":"coffee ./TestServer.coffee"},"version":"0.11.3"}
 
 /***/ }),
 /* 605 */

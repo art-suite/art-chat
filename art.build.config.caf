@@ -3,15 +3,43 @@ target:
     configures for standard node-targeted library
     NOTE: node-targeted libraries can also be built into broswer-targeted libraries.
       They just can't be used *directly* in the browser
-  node: false
+  node: true
 
-npm:
+package: ->
   description: "" Art.Chat
-  dependencies: art-suite-app: :git://github.com/imikimi/art-suite-app
+  scripts:
+    start:              "" node build/Server.js
+    dev:                "" nn -s; webpack-dev-server --hot --inline --progress
+    build:              "" nn -s; webpack --progress
+
+  engines: node: :8.x
+
+  dependencies:
+    aws-sdk:      :^2.62.0
+    aws4:         :^1.6.0
+    bluebird:     :^3.5.0
+    colors:       :^1.1.2
+    compress:     :^0.99.0
+    compression:  :^1.6.2
+    detect-node:  :^2.0.3
+    express:      :^4.15.3
+    jsonwebtoken: :^7.4.1
+    mailgun-js:   :^0.11.2
+    pusher:       :^1.5.1
+    throng:       :^4.0.0
+    uuid:         :^3.0.1
+    xhr2:         :^0.1.4
+    fs-extra:     :^3.0.1
+    querystring:  :*
+    stripe:       :^4.22.0
+    morgan:       :^1.8.2
+    newrelic:     :^2.2.1
 
 webpack:
   # common properties are merged into each target's properties
   common: {}
 
   # each target's individual properties
-  targets: Client: {}
+  targets:
+    # Client: {}
+    Server: target: :node
