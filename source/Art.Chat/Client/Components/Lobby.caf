@@ -14,6 +14,14 @@ class Lobby extends FluxComponent
     canEnter: ->
       !!present @currentUser
 
+  @setter
+    currentUser: (u) ->
+      @setState currentUser:
+        if present u
+          u.trim()
+        else
+          null
+
   enter: ->
     if @canEnter
       @showLobby = false

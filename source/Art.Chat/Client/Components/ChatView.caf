@@ -6,14 +6,23 @@ class ChatView extends FluxComponent
       model:  :chatsByChatRoom
       key:    ({chatRoom}) ->  chatRoom
 
-  postMessage: ({target}) ->
+  @stateField message:  null
+  @propFields chatRoom: :artSuite
+  @getter
+    user:            -> @props.currentUser
+    messagePostable: -> present @message
+
+  postMessage: ->
     @models.chat.create data: {}
-      user:     @props.currentUser
-      message:  target.value
-      @props.chatRoom
+      @user
+      @message
+      @chatRoom
 
     # slight delay - sometimes a "\n" is added AFTER this when "enter" is pressed
-    timeout 10 -> target.value = ""
+    @refs.messageInput.element.value = ""
+    timeout 0 -> @refs.messageInput.element.value = ""
+
+  valueChanged: (event) -> @message = event.props.value
 
   componentWillMount: ->
     timeout 500 -> @refs.messageInput.element.focus()
@@ -55,20 +64,28 @@ class ChatView extends FluxComponent
 
       Element
         size:     hch: 1
-        padding:  h: 7
         draw:
           outline:    &Palette.black.quandary
           &Palette.gray
-          padding:    gridSize / 2
-          rectangle:  radius: gridSize
-          &Palette.white.primary
-          outline:    &Palette.black.quandary
+        childrenLayout: :row
+        childrenAlignment: :centerLeft
+        padding: right: gridSize / 2
 
-        TextInputElement
-          &StyleProps.mediumText
-          key:          :messageInput
-          on:           enter: @postMessage
-          type:         :textarea
-          size:         ww:1 hch:1 max: h: 160
-          padding:      h: 10 v: gridSize
-          placeholder:  "" new message
+        Element
+          size:     hch: 1
+          padding:  h: 7
+          draw:
+            padding:    gridSize / 2
+            rectangle:  radius: gridSize
+            &Palette.white.primary
+            outline:    &Palette.black.quandary
+
+          TextInputElement
+            &StyleProps.mediumText
+            key:          :messageInput
+            on:           enter: @postMessage, valueChanged: @valueChanged
+            type:         :textarea
+            size:         ww:1 hch:1 max: h: 160
+            padding:      h: 10 v: gridSize
+            placeholder:  "" new message
+        &Button text: :send color: true action: @messagePostable && @postMessage
