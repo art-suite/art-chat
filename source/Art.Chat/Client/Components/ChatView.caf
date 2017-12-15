@@ -11,7 +11,9 @@ class ChatView extends FluxComponent
       user:     @props.currentUser
       message:  target.value
       @props.chatRoom
-    target.value = ""
+
+    # slight delay - sometimes a "\n" is added AFTER this when "enter" is pressed
+    timeout 10 -> target.value = ""
 
   componentWillMount: ->
     timeout 500 -> @refs.messageInput.element.focus()
