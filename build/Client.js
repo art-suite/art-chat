@@ -37246,7 +37246,7 @@ module.exports = SynchronizedDomOverlay = (function(superClass) {
     domElement: function(domElement) {
       this._detachDomElement();
       this._domElement = domElement;
-      this._domElement.style.position = "fixed";
+      this._domElement.style.position = "absolute";
       this._domElement.style.top = "0";
       return this.onNextReady((function(_this) {
         return function() {
