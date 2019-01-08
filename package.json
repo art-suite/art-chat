@@ -24,6 +24,5 @@
     "build": "nn -s; webpack --progress",
     "dev": "nn -s; webpack-dev-server --hot --inline --progress",
     "start": "node build/Server.js"
-  },
-  "version": "1.1.0"
+  }
 }
