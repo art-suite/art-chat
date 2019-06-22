@@ -6,11 +6,11 @@ class Palette extends HotStyleProps
   @primary:           hslColor .6   .75   .75
   @darkPrimary:       hslColor .6   .75   .5
 
-  @gray:  #eee
+  @gray:        #eee
 
   @white:
-    primary:  #fffe
-    secondary: #fffc
+    primary:    #fffe
+    secondary:  #fffc
 
   @black:
     primary:    #000e

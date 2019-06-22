@@ -3,28 +3,26 @@ import &ArtSuite
 class ChatMessage extends Component
 
   render: ->
-    {currentUser, user, message} = @props
+    @props extract currentUser, user, message
 
     isAction = /^\//.test message
 
     currentUsersMessage = user == currentUser
 
     Element
+      :row :parentWidthChildrenHeight
       margin:         10
-      size:           hch: 1
-      childrenLayout: :row
       animators:
         size: toFrom: h: 0
         axis: toFrom: x: if currentUsersMessage then -1 else 1
 
       Element
-        size:               hch: 1
-        childrenLayout:     :column
+        :column :parentWidthChildrenHeight
         childrenMargins:    5
         childrenAlignment:  if currentUsersMessage then :right else :left
 
         Element
-          size: cs: 1   max: w: 260
+          size: cs: 1 max: w: 260
           if currentUsersMessage
             axis:     x:  1
             location: xw: 1
@@ -45,11 +43,11 @@ class ChatMessage extends Component
             size:     cs: 1   max: ww:1
             color:
               if currentUsersMessage && !isAction
-                &Palette.white.primary
-              else
-                &Palette.black.secondary
+                    &Palette.white.primary
+              else  &Palette.black.secondary
 
         TextElement
           &StyleProps.smallText
+          :childrenSize
           text:   if isAction then "#{user} #{message.slice 1, message.length}" else user
           color:  &Palette.black.secondary

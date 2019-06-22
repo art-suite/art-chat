@@ -4,8 +4,8 @@ class Chat extends PusherPipelineMixin DynamoDbPipeline
   @globalIndexes chatsByChatRoom: :chatRoom/createdAt
 
   @addDatabaseFilters
-    user:     "" required trimmedString
-    message:  "" required trimmedString
-    chatRoom: "" required trimmedString
+    user:     :required :trimmedString
+    message:  :required :trimmedString
+    chatRoom: :required :trimmedString
 
-  @publicRequestTypes "" get create chatsByChatRoom
+  @publicRequestTypes :get :create :chatsByChatRoom

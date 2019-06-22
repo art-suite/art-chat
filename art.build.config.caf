@@ -1,8 +1,6 @@
-package: ->
+package:
   description: "" Art.Chat
   scripts:
-    start:              "" node build/Server.js
-    dev:                "" nn -s; webpack-dev-server --hot --inline --progress
     build:              "" nn -s; webpack --progress
 
   engines: node: :8.x

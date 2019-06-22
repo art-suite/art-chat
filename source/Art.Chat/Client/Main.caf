@@ -2,6 +2,7 @@ import &ArtSuite
 &ArtEryPusher/Client
 &Configs
 &Pipelines
+
 &ArtSuiteApp.initArtSuiteClient
   MainComponent:
     class Main extends Component

@@ -27,7 +27,7 @@ class Lobby extends FluxComponent
       @showLobby = false
       @models.chat.create data: {}
         user:     @currentUser
-        message:  "/entered the room"
+        message:  "" /entered the room
         @chatRoom
 
   exit: ->
@@ -35,18 +35,18 @@ class Lobby extends FluxComponent
       @showLobby = true
       @models.chat.create data: {}
         user:     @currentUser
-        message:  "/left"
+        message:  :/left
         @chatRoom
 
   renderLobbyUi: ->
     {gridSize} = &StyleProps
     Element
-      key: :lobby
-      axis: .5
-      location: ps: .5
-      size: w: 320, hch: 1
-      childrenLayout: :column
-      cacheDraw: true
+      key:  :lobby
+      size: w: 320  hch: 1
+      :centerCenter
+      :column
+      :cacheDraw
+
       animators:
         location: duration: .5 toFrom: ps: .5, y: -70
         opacity:  duration: .5 toFrom: 0
@@ -54,16 +54,16 @@ class Lobby extends FluxComponent
       Element
         size: hch: 1
         TextElement
-          inFlow: false
-          axis:   :bottomRight
-          location: ps: 1
-          text:   :Chat
-          color:  &Palette.black.quandary
+          :bottomRight
+          :childrenSize
+          inFlow:   false
+          text:     :Chat
+          color:    &Palette.black.quandary
           fontSize: 92
         TextElement
-          size:   cs: 1
-          text:   :ArtSuite
-          color:  :white
+          :childrenSize
+          text:     :ArtSuite
+          color:    :white
           fontSize: 48
 
       Element
@@ -88,11 +88,11 @@ class Lobby extends FluxComponent
       Element size: h: 10
 
       &Button
-        color: :white
-        size: h: gridSize * 2
-        text: "" join chat
+        color:    :white
+        size:     h: gridSize * 2
+        text:     "" join chat
         disabled: !@canEnter
-        action: @enter
+        action:   @enter
 
   render: ->
     Element
@@ -104,9 +104,8 @@ class Lobby extends FluxComponent
           null
       else
         Element
+          :topCenter
           key: :chatView
           animators: axis: duration: .5 toFrom: y: -1, x: .5
-          axis: x: .5
-          location: ww: .5
           size: ww: 1 max: x: 400
           &ChatView {} @currentUser, @chatRoom, @exit

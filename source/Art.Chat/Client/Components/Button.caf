@@ -2,39 +2,43 @@ import &ArtSuite
 
 class Button extends PointerActionsMixin Component
   render: ->
-    {gridSize} = &StyleProps
-    {disabled, color, size = h: gridSize * 2, wcw: 1} = @props
-    {hover, pointerIsDown} = @
-    disabled = true unless @props.action
+    &StyleProps extract gridSize
+    @props extract
+      disabled
+      color
+      size
+      action
+      text
+
+    @ extract hover, pointerIsDown
+    disabled = true unless action
     hover = pointerIsDown = false if disabled
 
     Element
-      on:                 @pointerHandlers
-      size:               size
-      padding:            gridSize
-      cursor:             !disabled && :pointer
-      opacity:            if disabled then .5 else 1
-      childrenLayout:     :row
-      childrenAlignment:  .5
+      :row :childrenCenterCenter
+      on:           @pointerHandlers
+      size:         size ? h: gridSize * 2  wcw: 1
+      padding:      gridSize
+      cursor:       !disabled && :pointer
+      opacity:      if disabled then .5 else 1
       drawOrder:
         rectangle:  radius: 1000
         color:
           if color
             if hover && !pointerIsDown
-              &Palette.veryLightPrimary
-            else
-              &Palette.lightPrimary
+                  &Palette.veryLightPrimary
+            else  &Palette.lightPrimary
           else
             if hover && !pointerIsDown
-              &Palette.black.secondary
-            else
-              &Palette.black.tertiary
+                  &Palette.black.secondary
+            else  &Palette.black.tertiary
+
       animators:
         drawOrder:  true
         opacity:    true
 
-      TextElement
+      text && TextElement
         &StyleProps.titleText
-        size: cs: 1
-        text: @props.text ? "button"
-        color: &Palette.white.secondary
+        :childrenSize
+        text:   text
+        color:  &Palette.white.secondary

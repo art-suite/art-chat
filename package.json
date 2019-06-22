@@ -1,5 +1,7 @@
 {
+  "author": "Shane Brinkman-Davis Delamore, Imikimi LLC\"",
   "dependencies": {
+    "art-build-configurator": "*",
     "aws-sdk": "^2.62.0",
     "aws4": "^1.6.0",
     "bluebird": "^3.5.0",
@@ -20,9 +22,11 @@
   "engines": {
     "node": "8.x"
   },
+  "license": "ISC",
+  "name": "art-chat",
   "scripts": {
     "build": "nn -s; webpack --progress",
-    "dev": "nn -s; webpack-dev-server --hot --inline --progress",
-    "start": "node build/Server.js"
+    "start": "webpack-dev-server --hot --inline --progress --env.devServer",
+    "test": "webpack-dev-server  --progress --env.devServer"
   }
 }
